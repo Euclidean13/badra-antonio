@@ -1432,7 +1432,7 @@ const CONFIG = {
       b2.addEventListener('click', () => ics(EV, `boda-${slug(C.novia)}-${slug(C.novio)}.ics`)); menu.appendChild(b2);
     }
     cal.appendChild(menu);
-    act.append(map, cal); info.appendChild(act);
+    if (e.mapa) act.append(map); act.append(cal); info.appendChild(act);
     box.appendChild(art);
   });
 
@@ -1661,7 +1661,7 @@ const CONFIG = {
     L.push(`Hola, ${C.novia} y ${C.novio}.`, `Confirmación para el ${fechaPuntos.replace(/ · /g,'/')}:`, '');
     L.push(`Nombre: ${d.nombre}`, `Asistencia: ${d.asiste === 'si' ? 'Sí' : 'No podemos ir'}`);
     if (d.asiste === 'si') {
-      if (partes) L.push(`Vendremos a: ${[d.manana && 'ceremonia y brunch', d.noche && 'cóctel, banquete y baile'].filter(Boolean).join(' + ')}`);
+      if (partes) L.push(`Vendremos a: ${[d.manana && 'ceremonia y aperitivo', d.noche && 'cóctel, banquete y baile'].filter(Boolean).join(' + ')}`);
       L.push(`Pareja: ${d.pareja ? (d.parejaNombre || 'Sí') : 'No'}`);
       if (cena()) L.push(`${T.menu}: ${menuTxt()}`);
       if (d.alergias) L.push(`Alergias: ${d.alergias}`);
@@ -1722,7 +1722,7 @@ const CONFIG = {
     const row = mk('div', 'iev'), t = mk('time', null, e.inicio), d = mk('div');
     d.append(mk('b', null, e.titulo), mk('small', null, [e.sala, e.direccion].filter(Boolean).join(' · ')));
     const a = mk('a', 'link'); a.href = e.mapa; a.target = '_blank'; a.rel = 'noopener'; a.innerHTML = pin + T.llegar;
-    row.append(t, d, a); $('#infoEv').appendChild(row);
+    row.append(t, d); if (e.mapa) row.append(a); $('#infoEv').appendChild(row);
   });
 
   $('#icsAll').addEventListener('click', () => ics(EV, `boda-${slug(C.novia)}-${slug(C.novio)}.ics`));
